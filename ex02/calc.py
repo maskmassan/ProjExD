@@ -11,7 +11,7 @@ def button_click(event): #ボタンがクリックされた時の動作
          entry.delete(0, tk.END)
          entry.insert(tk.END,ans)
 
-    elif tex=="C": #全て消すことが出来る
+    elif tex=="C": #Cを押すと、全て消える
         entry.delete(0, tk.END)
 
     elif tex=="TAX":#税込みの価格を知る
@@ -39,7 +39,10 @@ if __name__=="__main__":
     entry.grid(row=0,column=0,columnspan=3)
 
     for i,num in enumerate(["C","TAX","unico",9,8,7,6,5,4,3,2,1,0,"+","=","*","/","-"]):#表示されるコマンド
-        btn = tk.Button(root,text=f"{num}",width =4,height=2,font=("Times New Roman",20))
+        btn = tk.Button(root,text=f"{num}",
+        width =4,
+        height=2,
+        font=("Times New Roman",20))
         btn.grid(row = r , column=c)
         btn.bind("<1>",button_click)
         c+=1
