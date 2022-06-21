@@ -11,16 +11,16 @@ def button_click(event): #ボタンがクリックされた時の動作
          entry.delete(0, tk.END)
          entry.insert(tk.END,ans)
 
-    elif tex=="C":
+    elif tex=="C": #全て消すことが出来る
         entry.delete(0, tk.END)
 
-    elif tex=="TAX":
+    elif tex=="TAX":#税込みの価格を知る
         eqn = entry.get()
         ans = eval(eqn)*1.1
         entry.delete(0, tk.END)
         entry.insert(tk.END,ans)
 
-    elif tex=="unico":
+    elif tex=="unico":#unicodeを知ることが出来る
         eqn = entry.get()
         ans = chr(eval(eqn))
         entry.delete(0, tk.END)
