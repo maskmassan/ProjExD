@@ -11,6 +11,21 @@ def button_click(event): #ボタンがクリックされた時の動作
          entry.delete(0, tk.END)
          entry.insert(tk.END,ans)
 
+    elif tex=="C":
+        entry.delete(0, tk.END)
+
+    elif tex=="TAX":
+        eqn = entry.get()
+        ans = eval(eqn)*1.1
+        entry.delete(0, tk.END)
+        entry.insert(tk.END,ans)
+
+    elif tex=="unico":
+        eqn = entry.get()
+        ans = chr(eval(eqn))
+        entry.delete(0, tk.END)
+        entry.insert(tk.END,ans)
+
     else:
         entry.insert(tk.END,tex)
 
@@ -23,8 +38,8 @@ if __name__=="__main__":
     entry = tk.Entry(root, justify="right",width =10,font=("Times New Roman",40))
     entry.grid(row=0,column=0,columnspan=3)
 
-    for i,num in enumerate([9,8,7,6,5,4,3,2,1,0,"+","="]):#表示されるコマンド
-        btn = tk.Button(root,text=f"{num}",width =4,height=2,font=("Times New Roman",25))
+    for i,num in enumerate(["C","TAX","unico",9,8,7,6,5,4,3,2,1,0,"+","=","*","/","-"]):#表示されるコマンド
+        btn = tk.Button(root,text=f"{num}",width =4,height=2,font=("Times New Roman",20))
         btn.grid(row = r , column=c)
         btn.bind("<1>",button_click)
         c+=1
