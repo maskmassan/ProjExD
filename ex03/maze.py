@@ -8,15 +8,7 @@ def key_down(event):
     global key 
     key = event.keysym
     
-    
-    
-
-def countup():
-    global tmr,jid
-    tmr +=1
-    jid = root.after(1000,countup)
-    
-
+        
 def key_up(event):
     
     global key
@@ -39,14 +31,7 @@ def main_proc():#座標の移動
     cx, cy = 100*mx+50, 100*my+50
     canvas.coords("tori", cx, cy)
     root.after(100, main_proc)
-    if cx ==1350:
-        if cy ==750:
-            m+=1
-
-    if m==1:
-        ms.showinfo("やりますね！","攻略されました")#クリアした際の結果
-        ms.showinfo("終了",f"{tmr}秒かかりました")
-        root.bind("<keyPress>",countup)
+    
             
 
             
@@ -68,7 +53,7 @@ if __name__ == "__main__":
     tori = tk.PhotoImage(file = "fig/6.png")
     
     cx,cy =30,40
-    canvas.create_image(cx,cy,image = tori,tag ="tori")
+    canvas.create_image(cx,cy,image = tori,tag ="tori") #実際にこうかとんが書かれる
 
     key = ""
 
