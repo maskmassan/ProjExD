@@ -22,7 +22,7 @@ def key_up(event):
     global key
     key=""
 
-def main_proc():
+def main_proc():#座標の移動
     global cx,cy,mx,my,m
     delta = {"Up"   : [0, -1],
              "Down" : [0, +1],
@@ -44,7 +44,7 @@ def main_proc():
             m+=1
 
     if m==1:
-        ms.showinfo("終了","攻略されました")
+        ms.showinfo("やりますね！","攻略されました")#クリアした際の結果
         ms.showinfo("終了",f"{tmr}秒かかりました")
         root.bind("<keyPress>",countup)
             
