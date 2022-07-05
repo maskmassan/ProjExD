@@ -39,8 +39,7 @@ def main():
     bm2img_rct.centerx = random.randint(0,screen_rct.width)#ランダムな位置でつける
     bm2img_rct.centery = random.randint(0,screen_rct.height)
 
-    while kkimg_rct.colliderect(bmimg_rct) or kkimg_rct.colliderect(bm2img_rct):
-        tmr+=1
+    
     
     
     
@@ -77,9 +76,7 @@ def main():
         #練習7
         yoko,tate = check_bound(bmimg_rct,screen_rct)
         vx*=yoko#横方向に画面外なら、横方向速度の符号反転
-        vx+=0.01
         vy*=tate#縦方向に画面外なら、縦方向速度の符号反転
-        vy+=0.01
         yoko,tate = check_bound(bm2img_rct,screen_rct)#爆弾二つ目
         sx*=yoko#横方向に画面外なら、横方向速度の符号反転
         sy*=tate#縦方向に画面外なら、縦方向速度の符号反転
