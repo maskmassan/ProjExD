@@ -77,6 +77,8 @@ def main():
         yoko,tate = check_bound(bmimg_rct,screen_rct)
         vx*=yoko#横方向に画面外なら、横方向速度の符号反転
         vy*=tate#縦方向に画面外なら、縦方向速度の符号反転
+        vx+=0.01#動きを不規則にした
+        vy+=0.01#上に同様動きを不規則にしました
         yoko,tate = check_bound(bm2img_rct,screen_rct)#爆弾二つ目
         sx*=yoko#横方向に画面外なら、横方向速度の符号反転
         sy*=tate#縦方向に画面外なら、縦方向速度の符号反転
