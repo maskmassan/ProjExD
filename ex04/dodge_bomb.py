@@ -1,4 +1,3 @@
-from itertools import count
 from time import time
 import pygame as pg
 import sys
@@ -7,7 +6,7 @@ import tkinter as tk
 import tkinter.messagebox as tkm
 
 def main():
-     
+    global tmr,jid
     clock = pg.time.Clock()
     pg.display.set_caption("逃げろこうかとん")
     screen_sfc = pg.display.set_mode((1600,900))#surface
@@ -37,8 +36,13 @@ def main():
     bm2img_sfc.set_colorkey((0,0,0))
     pg.draw.circle(bm2img_sfc,(255,255,0),(10,10),10)
     bm2img_rct = bmimg_sfc.get_rect()
-    bm2img_rct.centerx = random.randint(0,screen_rct.width)
+    bm2img_rct.centerx = random.randint(0,screen_rct.width)#ランダムな位置でつける
     bm2img_rct.centery = random.randint(0,screen_rct.height)
+
+    while kkimg_rct.colliderect(bmimg_rct) or kkimg_rct.colliderect(bm2img_rct):
+        tmr+=1
+    
+    
     
     
     while True:
@@ -65,30 +69,29 @@ def main():
             
         screen_sfc.blit(kkimg_sfc,kkimg_rct)
 
-        bmimg_rct.move_ip(vx,vy)
-        bm2img_rct.move_ip(sx,sy)
+        bmimg_rct.move_ip(vx,vy)#爆弾1を動くようにした。
+        bm2img_rct.move_ip(sx,sy)#爆弾2を動くようにした。
 
         screen_sfc.blit(bmimg_sfc,bmimg_rct)#爆弾一つ目
         screen_sfc.blit(bm2img_sfc,bm2img_rct)#爆弾二つ目
         #練習7
         yoko,tate = check_bound(bmimg_rct,screen_rct)
         vx*=yoko#横方向に画面外なら、横方向速度の符号反転
+        vx+=0.01
         vy*=tate#縦方向に画面外なら、縦方向速度の符号反転
-
+        vy+=0.01
         yoko,tate = check_bound(bm2img_rct,screen_rct)#爆弾二つ目
         sx*=yoko#横方向に画面外なら、横方向速度の符号反転
         sy*=tate#縦方向に画面外なら、縦方向速度の符号反転
 
-        if kkimg_rct.colliderect(bmimg_rct):#練習8 
+        if kkimg_rct.colliderect(bmimg_rct):#練習8
             return
         if kkimg_rct.colliderect(bm2img_rct):#爆弾二つ目の処理
             return
-        def countup():
-            global tmr,jid
-            tmr =tmr+1
-            jid = root.after(1000,countup)
+
+        
     
-        pg.display.update()
+        pg.display.update()#アップデートをしている
         clock.tick(1000)
 
 
@@ -99,10 +102,10 @@ def check_bound(rct,scr_rct):#rctこうかとんまたは、爆弾のrect,
     if rct.top < scr_rct.top or scr_rct.bottom < rct.bottom:
         tate=-1
     return yoko,tate
-def countup():
+
+def countup():#タイマーを増やす
     global tmr,jid
     tmr +=1
-    jid = root.after(1000,countup)
 
 
 
@@ -114,8 +117,10 @@ if __name__=="__main__":
     root=tk.Tk()
     root.withdraw()
     tmr =0
+    m=0
     jid =None
     tkm.showinfo("終わり",f"{tmr}秒生存しました")
+    tkm.showinfo("終わり","運動神経を鍛えましょう")
     countup()
     pg.quit()
-    sys,exit()
+    sys.exit()
