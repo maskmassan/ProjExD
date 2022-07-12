@@ -41,15 +41,15 @@ class Bird(pg.sprite.Sprite):
           self.rect.centerx -= delta[0]
           self.rect.centery -= delta[1]
 
-class MUteki(pg.sprite.Sprite):
+class MUteki(pg.sprite.Sprite):#無敵クラス
   global m
   def __init__(self, fn,r,screen):
      super().__init__()
      self.image = pg.image.load(fn)
      self.image = pg.transform.rotozoom(self.image,0,r*0.1)
-     self.rect= self.image.get_rect()               #敵のRect
-     self.rect.centerx = random.randint(0, screen.rect.width)
-     self.rect.centery = random.randint(0, screen.rect.height)
+     self.rect= self.image.get_rect()               #スターのRect
+     self.rect.centerx = random.randint(0, screen.rect.width)#ランダムで配置するx座標
+     self.rect.centery = random.randint(0, screen.rect.height)#ランダムで配置するy座標
      screen.disp.blit(self.image, self.rect)
      
 
@@ -72,7 +72,7 @@ class Bomb(pg.sprite.Sprite):
     self.vx *= x # 横方向に画面外なら，横方向速度の符号反転
     self.vy *= y # 縦方向に画面外なら，縦方向速度の符号反転
 
-class Teki(pg.sprite.Sprite):
+class Teki(pg.sprite.Sprite):#写真の敵を追加
   def __init__(self, fn, r, ab, screen):
     super().__init__()
     self.image = pg.image.load(fn)                 #敵のSurface
@@ -83,7 +83,7 @@ class Teki(pg.sprite.Sprite):
     screen.disp.blit(self.image, self.rect)                   # 敵用のSurfaceを画面用Surfaceに貼り付ける
     self.vx, self.vy = ab
 
-  def update(self, screen):
+  def update(self, screen):#この関数でアップデートを
     self.rect.move_ip(self.vx, self.vy)
     a, b = check_bound(screen.rect, self.rect)
     self.vx *= a 
@@ -152,6 +152,7 @@ def main():
         # 練習8
         if len(pg.sprite.groupcollide(tori,item,False,False))     !=0:
           m=1
+          del item
           
 
         
@@ -169,6 +170,12 @@ def main():
           else:
               pass
 
+            
+        if len(pg.sprite.groupcollide(tori, teki, False, False))  != 0:
+          if m==0:
+              return 
+          else:
+              pass
 
 
         pg.display.update()  # 画面の更新
