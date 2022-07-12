@@ -95,7 +95,7 @@ def main():
     screen.disp.blit(bomb.image, bomb.rect)               # 爆弾用のSurfaceを画面用Surfaceに貼り付ける
     bombs = pg.sprite.Group()
     for _ in range(1):
-      bombs.add(Bomb((255,0,0), random.randint(1,50), (+1, +1), screen))
+      bombs.add(Bomb((255,0,0), random.randint(1,50), (+1, +1), screen))#１つの爆弾を実装する
     bombs.draw(screen.disp)
 
     item = pg.sprite.Group()
@@ -157,8 +157,6 @@ def check_bound(sc_r, obj_r): # 画面用Rect, ｛こうかとん，爆弾｝Rec
     if obj_r.left < sc_r.left or sc_r.right  < obj_r.right : x = -1
     if obj_r.top  < sc_r.top  or sc_r.bottom < obj_r.bottom: y = -1
     return x, y
-
-
 
 
 if __name__ == "__main__":
