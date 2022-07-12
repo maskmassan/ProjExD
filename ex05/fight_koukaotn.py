@@ -1,8 +1,8 @@
+from tokenize import group
 import pygame as pg
 import sys
 import random
 m=0
-
 class Screen:
   def __init__(self, fn, wh, title):
     #fn: 背景画像のパス, wh: 幅高さのタプル, title: 画面のタイトル
@@ -53,24 +53,6 @@ class MUteki(pg.sprite.Sprite):
      screen.disp.blit(self.image, self.rect)
      
 
-class Teki(pg.sprite.Sprite):
-  def __init__(self, fn, r, ab, screen):
-    super().__init__()
-    self.image = pg.image.load(fn)                 #敵のSurface
-    self.image = pg.transform.rotozoom(self.image, 0, r)
-    self.rect= self.image.get_rect()               #敵のRect
-    self.rect.centerx = random.randint(0, screen.rect.width)
-    self.rect.centery = random.randint(0, screen.rect.height)
-    screen.disp.blit(self.image, self.rect)                   # 敵用のSurfaceを画面用Surfaceに貼り付ける
-    self.vx, self.vy = ab
-
-  def update(self, screen):
-    self.rect.move_ip(self.vx, self.vy)
-    a, b = check_bound(screen.rect, self.rect)
-    self.vx *= a 
-    self.vy *= b 
-
-
 class Bomb(pg.sprite.Sprite):
   def __init__(self, color, r, vxy, screen):
     #color: 爆弾の色, r:爆弾円の半径 vxy:爆弾円の速度タプル, screen:
@@ -106,16 +88,14 @@ def main():
     tori.add(Bird("fig/3.png", 2, (900, 400)))
     tori.draw(screen.disp)
 
-    teki = pg.sprite.Group()
-    teki.add(Teki("fig/0.png", 1, (+1, +1),screen))
-    teki.draw(screen.disp)
+    
 
     # 練習5
     bomb = Bomb((0,0,0), 10, (+2, +2), screen)
     screen.disp.blit(bomb.image, bomb.rect)               # 爆弾用のSurfaceを画面用Surfaceに貼り付ける
     bombs = pg.sprite.Group()
     for _ in range(1):
-      bombs.add(Bomb((0,0,255), random.randint(1,50), (+1, +1), screen))
+      bombs.add(Bomb((255,0,0), random.randint(1,50), (+1, +1), screen))
     bombs.draw(screen.disp)
 
     item = pg.sprite.Group()
@@ -134,9 +114,7 @@ def main():
         # screen.disp.blit(tori.image, tori.rect)
         tori.draw(screen.disp)
 
-        teki.update(screen)
-        teki.draw(screen.disp)
-
+       
         
 
         # 練習6
@@ -151,8 +129,10 @@ def main():
         # 練習8
         if len(pg.sprite.groupcollide(tori,item,False,False))     !=0:
           m=1
+
+        
         print(m)
-        if len(pg.sprite.groupcollide(tori, teki, False, False))  != 0:
+        if len(pg.sprite.groupcollide(tori, bombs, False, False))  != 0:
           if m==0:
               return      # こうかとん用のRectが爆弾用のRectと衝突していたらreturn
 
